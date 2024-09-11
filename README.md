@@ -4,7 +4,8 @@
 
 clone repo
 
-then update credentials within config.ini
+then update credentials within config.ini, 
+
 file with cookies should be created after that
 
 and run from terminal with python main.py
