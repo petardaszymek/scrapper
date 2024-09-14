@@ -4,8 +4,8 @@ import os
 from datetime import datetime
 from decimal import Decimal
 
-clean_csv_dir = r'C:\Users\User\PycharmProjects\twitter_scrap\clean'
-output_dir = r'C:\Users\User\PycharmProjects\twitter_scrap\sentiment'
+clean_csv_dir = r'.\clean'
+output_dir = r'.\sentiment'
 
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
