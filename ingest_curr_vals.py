@@ -15,7 +15,7 @@ coins = [
 ]
 
 # Directory to save the CSV files
-output_dir = r'C:\Users\User\PycharmProjects\twitter_scrap\currency_vals'
+output_dir = r'.\currency_vals'
 os.makedirs(output_dir, exist_ok=True)
 
 # Convert date to timestamp (UNIX time)
