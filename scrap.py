@@ -9,7 +9,7 @@ import os
 
 MINIMUM_TWEETS = 5000
 # Directory to save the CSV files
-raw_csv_dir = r'C:\Users\User\PycharmProjects\twitter_scrap\raw'
+raw_csv_dir = r'.\raw'
 
 # Ensure the directory exists
 os.makedirs(raw_csv_dir, exist_ok=True)
