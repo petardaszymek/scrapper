@@ -17,9 +17,9 @@ for directory in [RAW_DIR, CLEAN_DIR, SENTIMENT_DIR, CURRENCY_VALS_DIR]:
     directory.mkdir(exist_ok=True)
 
 # Twitter API credentials
-TWITTER_USERNAME = "Michal420237872"
-TWITTER_EMAIL = "michal.kolaczenko@o2.pl"
-TWITTER_PASSWORD = "ef32gfjh"
+TWITTER_USERNAME = "login"
+TWITTER_EMAIL = "e-mail"
+TWITTER_PASSWORD = "password"
 
 # CoinGecko API settings
 COINGECKO_COINS = [
