@@ -1,11 +1,11 @@
 import asyncio
-from twikit import Client, TooManyRequests
 import csv
-from datetime import datetime
 import logging
-from typing import List, Tuple, Optional
 import random
 import json
+from twikit import Client, TooManyRequests
+from datetime import datetime
+from typing import List, Tuple, Optional
 from config import (
     RAW_DIR,
     COOKIES_FILE,
