@@ -1,40 +1,105 @@
-import os
 import re
 import pandas as pd
+import logging
+from typing import List, Set
+from config import RAW_DIR, CLEAN_DIR
 
-csv_dir = r'C:\Users\User\PycharmProjects\twitter_scrap\raw'
-output_dir = r'C:\Users\User\PycharmProjects\twitter_scrap\clean'
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
+STOPWORDS: Set[str] = {
+    "the",
+    "is",
+    "in",
+    "it",
+    "and",
+    "to",
+    "a",
+    "of",
+    "that",
+    "i",
+    "for",
+    "on",
+    "with",
+    "you",
+    "this",
+    "at",
+    "by",
+    "not",
+    "are",
+    "be",
+    "will",
+    "can",
+    "has",
+    "have",
+    "was",
+    "were",
+    "would",
+    "could",
+    "should",
+    "did",
+    "do",
+    "does",
+    "done",
+}
 
-STOPWORDS = set([
-    'the', 'is', 'in', 'it', 'and', 'to', 'a', 'of', 'that', 'i', 'for', 'on', 'with', 'you', 'this', 'at', 'by', 'not'
-])
+CRYPTO_TERMS: Set[str] = {
+    "btc",
+    "eth",
+    "usdt",
+    "bnb",
+    "xrp",
+    "ada",
+    "doge",
+    "sol",
+    "ton",
+    "trx",
+    "dot",
+    "matic",
+    "ltc",
+}
 
-def clean_tweet(text):
-    if isinstance(text, str):
-        text = re.sub(r"http\S+|www\S+|https\S+", '', text)
-        text = re.sub(r'\@\w+|\#', '', text)
-        text = re.sub(r'\d+', '', text)
-        text = re.sub(r'[^\w\s]', '', text)
-        text = text.lower()
-        tokens = text.split()
-        tokens = [word for word in tokens if word not in STOPWORDS]
-        return " ".join(tokens)
-    return ""
 
-def clean_data():
-    for file_name in os.listdir(csv_dir):
-        if file_name.endswith('.csv'):
-            file_path = os.path.join(csv_dir, file_name)
-            print(f"Processing file: {file_name}")
+def clean_tweet(text: str) -> str:
+    if not isinstance(text, str):
+        return ""
+
+    text = text.lower()
+    text = re.sub(r"http\S+|www\S+|https\S+", "", text)
+    text = re.sub(r"\@\w+|\#", "", text)
+    text = re.sub(r"\$\w+", "", text)
+    text = re.sub(r"\d+", "", text)
+    text = re.sub(r"[^\w\s]", "", text)
+
+    tokens: List[str] = text.split()
+    tokens = [
+        word for word in tokens if word not in STOPWORDS and word not in CRYPTO_TERMS
+    ]
+    return " ".join(tokens)
+
+
+def clean_data() -> None:
+    for file_path in RAW_DIR.glob("*.csv"):
+        logging.info(f"Processing file: {file_path.name}")
+
+        try:
             df = pd.read_csv(file_path)
-            if 'Text' in df.columns:
-                df['cleaned_tweet'] = df['Text'].apply(clean_tweet)
-                output_path = os.path.join(output_dir, f"cleaned_{file_name}")
-                df.to_csv(output_path, index=False)
-                print(f"Cleaned file saved as: cleaned_{file_name}")
-            else:
-                print(f"Skipped {file_name}, no 'Text' column found")
-    print("Data cleaning completed.")
+            if "Text" not in df.columns:
+                logging.warning(f"Skipped {file_path.name}, no 'Text' column found")
+                continue
+
+            df["cleaned_tweet"] = df["Text"].apply(clean_tweet)
+            output_path = CLEAN_DIR / f"cleaned_{file_path.name}"
+            df.to_csv(output_path, index=False)
+            logging.info(f"Cleaned file saved as: {output_path}")
+
+        except Exception as e:
+            logging.error(f"Error processing {file_path.name}: {str(e)}")
+
+    logging.info("Data cleaning completed.")
+
+
+if __name__ == "__main__":
+    clean_data()
