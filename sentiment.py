@@ -1,8 +1,8 @@
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import pandas as pd
+import logging
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from datetime import datetime
 from decimal import Decimal
-import logging
 from typing import Dict, Any
 from config import CLEAN_DIR, SENTIMENT_DIR
 
