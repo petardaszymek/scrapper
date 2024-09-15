@@ -37,80 +37,62 @@ This project analyzes sentiment in cryptocurrency-related tweets and correlates 
    ```bash
     python main.py
    
-This executes the following pipeline:
+## This executes the following pipeline:
 
-Tweet scraping
-Data cleaning
-Sentiment analysis
-Cryptocurrency price data fetching
+- Tweet scraping
+- Data cleaning
+- Sentiment analysis
+- Cryptocurrency price data fetching
 
-Results are saved in these directories:
+## Results are saved in these directories:
 
-./raw/: Raw tweet data
-./clean/: Cleaned tweet data
-./sentiment/: Sentiment analysis results
-./currency_vals/: Cryptocurrency price data
+- ./raw/: Raw tweet data
+- ./clean/: Cleaned tweet data
+- ./sentiment/: Sentiment analysis results
+- ./currency_vals/: Cryptocurrency price data
 
-Project Structure
+## Project Structure
 
-main.py: Orchestrates the data pipeline
-
-scrap.py: Handles tweet scraping
-
-clean.py: Preprocesses scraped data
-
-sentiment.py: Performs sentiment analysis
-
-ingest_curr_vals.py: Fetches cryptocurrency prices
-
-config.py: Project configuration and settings
+- main.py: Orchestrates the data pipeline
+- scrap.py: Handles tweet scraping
+- clean.py: Preprocesses scraped data
+- sentiment.py: Performs sentiment analysis
+- ingest_curr_vals.py: Fetches cryptocurrency prices
+- config.py: Project configuration and settings
 
 
-Dependencies
+## Dependencies
 Main libraries used:
-
-twikit: Tweet scraping
-
-pandas: Data manipulation
-
-vaderSentiment: Sentiment analysis
-
-pycoingecko: Cryptocurrency data fetching
+- twikit: Tweet scraping
+- pandas: Data manipulation
+- vaderSentiment: Sentiment analysis
+- pycoingecko: Cryptocurrency data fetching
 
 
 For a full list, see requirements.txt.
-Configuration
+
+## Configuration
 Edit config.py to set:
-
-API credentials
-
-File paths
-
-Cryptocurrency list
-
-Date ranges for data collection
+- API credentials
+- File paths
+- Cryptocurrency list
+- Date ranges for data collection
 
 
-Data Flow
+## Data Flow:
 
-scrap.py collects tweets and saves raw data.
-
-clean.py processes raw data, removing noise and irrelevant information.
-
-sentiment.py analyzes cleaned data for sentiment.
-
-ingest_curr_vals.py fetches corresponding cryptocurrency prices.
-
-Results are saved for further analysis or visualization.
+- scrap.py collects tweets and saves raw data.
+- clean.py processes raw data, removing noise and irrelevant information.
+- sentiment.py analyzes cleaned data for sentiment.
+- ingest_curr_vals.py fetches corresponding cryptocurrency prices.
+- Results are saved for further analysis or visualization.
 
 
-Output
+## Output
 
-CSV files containing processed tweets with sentiment scores
-
-CSV files with daily aggregated sentiment
-
-CSV files of cryptocurrency price data
+- CSV files containing processed tweets with sentiment scores
+- CSV files with daily aggregated sentiment
+- CSV files of cryptocurrency price data
 
 
 
