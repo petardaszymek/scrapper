@@ -1,20 +1,28 @@
 import asyncio
-import scrap
-import clean
-import sentiment
+import logging
+from scrap import main as scrap_main
+from clean import clean_data
+from sentiment import analyze_data
+from ingest_curr_vals import fetch_coin_data
 
-def run_all_tasks():
-    # Run Twitter scraping
-    print("Starting Twitter scraping...")
-    asyncio.run(scrap.main())
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
-    # Run data cleaning
-    print("Starting data cleaning...")
-    clean.clean_data()
 
-    # Run sentiment analysis
-    print("Starting sentiment analysis...")
-    sentiment.analyze_data()
+async def run_all_tasks():
+    logging.info("Starting Twitter scraping...")
+    await scrap_main()
+
+    logging.info("Starting data cleaning...")
+    clean_data()
+
+    logging.info("Starting sentiment analysis...")
+    analyze_data()
+
+    logging.info("Starting currency data ingestion...")
+    fetch_coin_data()
+
 
 if __name__ == "__main__":
-    run_all_tasks()
+    asyncio.run(run_all_tasks())
