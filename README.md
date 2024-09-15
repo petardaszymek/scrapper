@@ -54,42 +54,64 @@ Results are saved in these directories:
 Project Structure
 
 main.py: Orchestrates the data pipeline
+
 scrap.py: Handles tweet scraping
+
 clean.py: Preprocesses scraped data
+
 sentiment.py: Performs sentiment analysis
+
 ingest_curr_vals.py: Fetches cryptocurrency prices
+
 config.py: Project configuration and settings
+
 
 Dependencies
 Main libraries used:
 
 twikit: Tweet scraping
+
 pandas: Data manipulation
+
 vaderSentiment: Sentiment analysis
+
 pycoingecko: Cryptocurrency data fetching
+
 
 For a full list, see requirements.txt.
 Configuration
 Edit config.py to set:
 
 API credentials
+
 File paths
+
 Cryptocurrency list
+
 Date ranges for data collection
+
 
 Data Flow
 
 scrap.py collects tweets and saves raw data.
+
 clean.py processes raw data, removing noise and irrelevant information.
+
 sentiment.py analyzes cleaned data for sentiment.
+
 ingest_curr_vals.py fetches corresponding cryptocurrency prices.
+
 Results are saved for further analysis or visualization.
+
 
 Output
 
 CSV files containing processed tweets with sentiment scores
+
 CSV files with daily aggregated sentiment
+
 CSV files of cryptocurrency price data
+
 
 
 
