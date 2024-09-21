@@ -1,9 +1,8 @@
 import pandas as pd
 import logging
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from datetime import datetime
-from decimal import Decimal
-from typing import Dict, Any
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from typing import Dict
 from config import CLEAN_DIR, SENTIMENT_DIR
 
 logging.basicConfig(
@@ -13,21 +12,9 @@ logging.basicConfig(
 analyzer = SentimentIntensityAnalyzer()
 
 
-def analyze_sentiment(text: str) -> Decimal:
+def analyze_sentiment(text: str) -> str:
     sentiment: Dict[str, float] = analyzer.polarity_scores(text)
-    return Decimal(sentiment["compound"])
-
-
-def convert_sentiment(sentiment: Decimal) -> int:
-    if -0.5 <= sentiment < -0.1:
-        return 0
-    elif -1 <= sentiment < -0.5:
-        return -1
-    elif 0 <= sentiment < 0.49:
-        return 0
-    elif 0.5 <= sentiment <= 1:
-        return 1
-    return 0
+    return f"{sentiment['compound']:.4f}".replace('.', ',')
 
 
 def convert_date(date_str: str) -> str:
@@ -52,10 +39,14 @@ def analyze_data() -> None:
                 continue
 
             df["sentiment"] = df["cleaned_tweet"].apply(analyze_sentiment)
-            df["sentiment"] = df["sentiment"].apply(convert_sentiment)
             df["Created_At"] = df["Created_At"].apply(convert_date)
 
-            daily_sentiment = df.groupby("Created_At")["sentiment"].mean().reset_index()
+            df["sentiment_float"] = df["sentiment"].str.replace(',', '.').astype(float)
+            daily_sentiment = df.groupby("Created_At")["sentiment_float"].mean().reset_index()
+            daily_sentiment["sentiment_float"] = (daily_sentiment["sentiment_float"]
+                                                  .apply(lambda x: f"{x:.4f}"
+                                                         .replace('.', ',')))
+            daily_sentiment = daily_sentiment.rename(columns={"sentiment_float": "sentiment"})
 
             df = df[
                 [
@@ -69,10 +60,10 @@ def analyze_data() -> None:
             ]
             df = df.rename(columns={"cleaned_tweet": "tweet"})
 
-            output_path = SENTIMENT_DIR / f"sentiment_{file_path.name}"
+            output_path = SENTIMENT_DIR / f"sentiment_{file_path.stem}.csv"
             df.to_csv(output_path, index=False)
 
-            daily_output_path = SENTIMENT_DIR / f"daily_sentiment_{file_path.name}"
+            daily_output_path = SENTIMENT_DIR / f"daily_sentiment_{file_path.stem}.csv"
             daily_sentiment.to_csv(daily_output_path, index=False)
 
             logging.info(f"Sentiment analysis saved to: {output_path}")
@@ -86,3 +77,4 @@ def analyze_data() -> None:
 
 if __name__ == "__main__":
     analyze_data()
+    
