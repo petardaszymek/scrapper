@@ -19,44 +19,44 @@ logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-MINIMUM_TWEETS = 10
+MINIMUM_TWEETS = # Set minimum value of tweets you want to get
 
 QUERIES: List[Tuple[str, str]] = [
-    ("min_faves:50 (#BTC) lang:en until:2024-08-03 since:2024-07-01", "btc.csv"),
-    ("min_faves:50 (#ETH) lang:en until:2024-08-03 since:2024-07-01", "eth.csv"),
-    ("min_faves:50 (#USDT) lang:en until:2024-08-03 since:2024-07-01", "usdt.csv"),
-    ("min_faves:50 (#BNB) lang:en until:2024-08-03 since:2024-07-01", "bnb.csv"),
-    ("min_faves:50 (#XRP) lang:en until:2024-08-03 since:2024-07-01", "xrp.csv"),
-    ("min_faves:50 (#ADA) lang:en until:2024-08-03 since:2024-07-01", "ada.csv"),
-    ("min_faves:50 (#DOGE) lang:en until:2024-08-03 since:2024-07-01", "doge.csv"),
-    ("min_faves:50 (#SOL) lang:en until:2024-08-03 since:2024-07-01", "sol.csv"),
-    ("min_faves:50 (#TON) lang:en until:2024-08-03 since:2024-07-01", "ton.csv"),
-    ("min_faves:50 (#TRX) lang:en until:2024-08-03 since:2024-07-01", "trx.csv"),
-    ("min_faves:50 (#DOT) lang:en until:2024-08-03 since:2024-07-01", "dot.csv"),
-    ("min_faves:50 (#MATIC) lang:en until:2024-08-03 since:2024-07-01", "matic.csv"),
-    ("min_faves:50 (#LTC) lang:en until:2024-08-03 since:2024-07-01", "ltc.csv"),
-    ("min_faves:50 (#AVAX) lang:en until:2024-08-03 since:2024-07-01", "avax.csv"),
-    ("min_faves:50 (#LINK) lang:en until:2024-08-03 since:2024-07-01", "link.csv"),
-    ("min_faves:50 (#SHIB) lang:en until:2024-08-03 since:2024-07-01", "shib.csv"),
-    ("min_faves:50 (#BCH) lang:en until:2024-08-03 since:2024-07-01", "bch.csv"),
-    ("min_faves:50 (#WBTC) lang:en until:2024-08-03 since:2024-07-01", "wbtc.csv"),
-    ("min_faves:50 (#DAI) lang:en until:2024-08-03 since:2024-07-01", "dai.csv"),
-    ("min_faves:50 (#XLM) lang:en until:2024-08-03 since:2024-07-01", "xlm.csv"),
-    ("min_faves:50 (#UNI) lang:en until:2024-08-03 since:2024-07-01", "uni.csv"),
-    ("min_faves:50 (#XMR) lang:en until:2024-08-03 since:2024-07-01", "xmr.csv"),
-    ("min_faves:50 (#APT) lang:en until:2024-08-03 since:2024-07-01", "apt.csv"),
-    ("min_faves:50 (#NEAR) lang:en until:2024-08-03 since:2024-07-01", "near.csv"),
-    ("min_faves:50 (#VET) lang:en until:2024-08-03 since:2024-07-01", "vet.csv"),
-    ("min_faves:50 (#HBAR) lang:en until:2024-08-03 since:2024-07-01", "hbar.csv"),
-    ("min_faves:50 (#ICP) lang:en until:2024-08-03 since:2024-07-01", "icp.csv"),
-    ("min_faves:50 (#FIL) lang:en until:2024-08-03 since:2024-07-01", "fil.csv"),
-    ("min_faves:50 (#AAVE) lang:en until:2024-08-03 since:2024-07-01", "aave.csv"),
-    ("min_faves:50 (#TAO) lang:en until:2024-08-03 since:2024-07-01", "tao.csv"),
-    ("min_faves:50 (#QUBIC) lang:en until:2024-08-03 since:2024-07-01", "qubic.csv"),
-    ("min_faves:50 (#SYN) lang:en until:2024-08-03 since:2024-07-01", "syn.csv"),
-    ("min_faves:50 (#NMT) lang:en until:2024-08-03 since:2024-07-01", "nmt.csv"),
-    ("min_faves:50 (#MLT) lang:en until:2024-08-03 since:2024-07-01", "mlt.csv"),
-    ("min_faves:50 (#WOO) lang:en until:2024-08-03 since:2024-07-01", "woo.csv"),
+    ("min_faves:50 (#BTC) lang:en until:2024-07-14 since:2024-07-01", "btc.csv"),
+    ("min_faves:20 (#ETH) lang:en until:2024-07-08 since:2024-07-01", "eth.csv")
+    ("min_faves:20 (#USDT) lang:en until:2024-08-03 since:2024-07-01", "usdt.csv"),
+    ("min_faves:20 (#BNB) lang:en until:2024-08-03 since:2024-07-01", "bnb.csv"),
+    ("min_faves:50 (#XRP) lang:en until:2024-07-06 since:2024-07-01", "xrp.csv"),
+    ("min_faves:20 (#ADA) lang:en until:2024-08-03 since:2024-07-01", "ada.csv"),
+    ("min_faves:20 (#DOGE) lang:en until:2024-08-03 since:2024-07-01", "doge.csv"),
+    ("min_faves:20 (#TAO) lang:en until:2024-08-03 since:2024-07-01", "tao.csv"),
+    ("min_faves:20 (#TON) lang:en until:2024-08-03 since:2024-07-01", "ton.csv"),
+    ("min_faves:20 (#TRX) lang:en until:2024-08-03 since:2024-07-01", "trx.csv"),
+    ("min_faves:20 (#DOT) lang:en until:2024-08-03 since:2024-07-01", "dot.csv"),
+    ("min_faves:20 (#MATIC) lang:en until:2024-08-03 since:2024-07-01", "matic.csv"),
+    ("min_faves:20 (#LTC) lang:en until:2024-08-03 since:2024-07-01", "ltc.csv"),
+    ("min_faves:20 (#AVAX) lang:en until:2024-08-03 since:2024-07-01", "avax.csv"),
+    ("min_faves:20 (#LINK) lang:en until:2024-08-03 since:2024-07-01", "link.csv"),
+    ("min_faves:20 (#SHIB) lang:en until:2024-08-03 since:2024-07-01", "shib.csv"),
+    ("min_faves:20 (#BCH) lang:en until:2024-08-03 since:2024-07-01", "bch.csv"),
+    ("min_faves:20 (#WBTC) lang:en until:2024-08-03 since:2024-07-01", "wbtc.csv"),
+    ("min_faves:20 (#DAI) lang:en until:2024-08-03 since:2024-07-01", "dai.csv"),
+    ("min_faves:20 (#XLM) lang:en until:2024-08-03 since:2024-07-01", "xlm.csv"),
+    ("min_faves:20 (#UNI) lang:en until:2024-08-03 since:2024-07-01", "uni.csv"),
+    ("min_faves:20 (#XMR) lang:en until:2024-08-03 since:2024-07-01", "xmr.csv"),
+    ("min_faves:20 (#APT) lang:en until:2024-08-03 since:2024-07-01", "apt.csv"),
+    ("min_faves:20 (#NEAR) lang:en until:2024-08-03 since:2024-07-01", "near.csv"),
+    ("min_faves:20 (#VET) lang:en until:2024-08-03 since:2024-07-01", "vet.csv"),
+    ("min_faves:20 (#HBAR) lang:en until:2024-08-03 since:2024-07-01", "hbar.csv"),
+    ("min_faves:20 (#ICP) lang:en until:2024-08-03 since:2024-07-01", "icp.csv"),
+    ("min_faves:20 (#FIL) lang:en until:2024-08-03 since:2024-07-01", "fil.csv"),
+    ("min_faves:20 (#AAVE) lang:en until:2024-08-03 since:2024-07-01", "aave.csv"),
+    ("min_faves:20 (#QUBIC) lang:en until:2024-08-03 since:2024-07-01", "qubic.csv"),
+    ("min_faves:20 (#SYN) lang:en until:2024-08-03 since:2024-07-01", "syn.csv"),
+    ("min_faves:20 (#MLT) lang:en until:2024-08-03 since:2024-07-01", "mlt.csv"),
+    ("min_faves:20 (#WOO) lang:en until:2024-08-03 since:2024-07-01", "woo.csv"),
+    ("min_faves:20 (#SOL) lang:en until:2024-07-06 since:2024-07-01", "sol.csv"),
+
 ]
 
 
@@ -65,7 +65,7 @@ async def get_tweets(client: Client, query: str, tweets: Optional[object]) -> ob
         logging.info(f"Getting tweets for query: {query}")
         tweets = await client.search_tweet(query, product="Latest")
     else:
-        wait_time = random.randint(5, 10)
+        wait_time = random.randint(5, 25)
         logging.info(
             f"Getting next tweets for query: {query} after {wait_time} seconds"
         )
