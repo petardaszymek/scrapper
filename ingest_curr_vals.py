@@ -1,9 +1,9 @@
-import csv
 import logging
 from pycoingecko import CoinGeckoAPI
 from datetime import datetime, timezone
 from typing import List, Tuple
 from config import CURRENCY_VALS_DIR, COINGECKO_COINS
+import pandas as pd
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -25,21 +25,21 @@ def format_date(timestamp: int) -> str:
 
 def save_to_csv(coin: str, merged_data: List[Tuple[int, float, float, float]]) -> None:
     filename = CURRENCY_VALS_DIR / f"{coin}.csv"
-    with filename.open(mode="w", newline="") as file:
-        writer = csv.writer(file)
-        writer.writerow(["Date", "Price (USD)", "Market Cap", "Volume"])
-        for point in merged_data:
-            try:
-                timestamp, price, market_cap, volume = point
-                date = format_date(timestamp)
-                price = int(price)
-                writer.writerow([date, price, market_cap, volume])
-            except Exception as e:
-                logging.error(f"Error processing data point {point}: {e}")
+    df = pd.DataFrame(merged_data, columns=["Timestamp", "Price (USD)", "Market Cap", "Volume"])
+    df["Date"] = df["Timestamp"].apply(format_date)
+    df = df[["Date", "Price (USD)", "Market Cap", "Volume"]]
+
+    # Format numbers with comma as decimal separator
+    df["Price (USD)"] = df["Price (USD)"].apply(lambda x: f"{x:.8f}".replace(".", ","))
+    df["Market Cap"] = df["Market Cap"].apply(lambda x: f"{x:.2f}".replace(".", ","))
+    df["Volume"] = df["Volume"].apply(lambda x: f"{x:.2f}".replace(".", ","))
+
+    df.to_csv(filename, index=False)
+    logging.info(f"Data saved to {filename}")
 
 
 def merge_data(
-    prices: List, market_caps: List, volumes: List
+        prices: List, market_caps: List, volumes: List
 ) -> List[Tuple[int, float, float, float]]:
     merged = []
     for price, market_cap, volume in zip(prices, market_caps, volumes):
@@ -63,7 +63,7 @@ def fetch_coin_data() -> None:
                 to_timestamp=end_date,
             )
             if not all(
-                key in data for key in ["prices", "market_caps", "total_volumes"]
+                    key in data for key in ["prices", "market_caps", "total_volumes"]
             ):
                 logging.warning(f"Missing data for {coin}: {data}")
                 continue
